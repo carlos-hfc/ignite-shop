@@ -1,9 +1,8 @@
-import axios from "axios"
 import { GetStaticPaths, GetStaticProps } from "next"
 import Head from "next/head"
 import Image from "next/image"
-import { useState } from "react"
 import Stripe from "stripe"
+import { useShoppingCart } from "use-shopping-cart"
 
 import { stripe } from "../../lib/stripe"
 import {
@@ -20,29 +19,22 @@ interface ProductItemProps {
     imageUrl: string
     price: string
     defaultPriceId: string
+    defaultPrice: number
   }
 }
 
 export default function ProductItem({ product }: ProductItemProps) {
-  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
-    useState(false)
+  const { addItem } = useShoppingCart()
 
-  async function handleBuyProduct() {
-    try {
-      setIsCreatingCheckoutSession(true)
-
-      const response = await axios.post("/api/checkout", {
-        priceId: product.defaultPriceId,
-      })
-
-      const { checkoutUrl } = response.data
-
-      window.location.href = checkoutUrl
-    } catch (error) {
-      setIsCreatingCheckoutSession(false)
-
-      alert("Falha ao redirecionar ao checkout")
-    }
+  async function handleAddToCart() {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.defaultPrice,
+      currency: "BRL",
+      price_id: product.defaultPriceId,
+      image: product.imageUrl,
+    })
   }
 
   return (
@@ -67,12 +59,7 @@ export default function ProductItem({ product }: ProductItemProps) {
 
           <p>{product.description}</p>
 
-          <button
-            onClick={handleBuyProduct}
-            disabled={isCreatingCheckoutSession}
-          >
-            Comprar agora
-          </button>
+          <button onClick={handleAddToCart}>Colocar na sacola</button>
         </ProductDetailsContainer>
       </ProductContainer>
     </>
@@ -80,13 +67,17 @@ export default function ProductItem({ product }: ProductItemProps) {
 }
 
 export const getStaticPaths: GetStaticPaths<{ id: string }> = async () => {
+  const response = await stripe.products.list()
+
+  const paths = response.data.map(item => ({
+    params: {
+      id: item.id,
+    },
+  }))
+
   return {
-    paths: [
-      {
-        params: { id: "prod_PqTjlAMBNNPCp2" },
-      },
-    ],
-    fallback: true,
+    paths,
+    fallback: "blocking",
   }
 }
 
@@ -114,6 +105,7 @@ export const getStaticProps: GetStaticProps<
           currency: "BRL",
         }).format(price.unit_amount / 100),
         defaultPriceId: price.id,
+        defaultPrice: price.unit_amount,
       },
     },
     revalidate: 60 * 60 * 1, // 1h
