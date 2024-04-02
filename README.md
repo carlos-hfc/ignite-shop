@@ -1,34 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+  <img src="./public/logo.svg" width="250" /> 
+</p>
 
-## Getting Started
+<br/>
 
-First, run the development server:
+# :bulb: Sobre
+
+Um e-commerce de camisetas feito em React como desafio do Ignite da Rocketseat.
+
+# :page_with_curl: Pré-requisitos
+
+1. Antes de começar, certifique-se de ter o Node.js instalado em sua máquina. 
+    <a href="https://nodejs.org">
+      <img width="30" src="https://user-images.githubusercontent.com/25181517/183568594-85e280a7-0d7e-4d1a-9028-c8c2209e073c.png" alt="Node.js" title="Node.js"/>
+    </a>
+
+# :gear: Configuração
+
+1. Clone o repositório para sua máquina local:
+
+```bash
+git clone https://github.com/carlos-hfc/ignite-shop
+```
+
+2. Acesse o diretório do projeto:
+
+```bash
+cd ignite-shop
+```
+
+3. Instale as dependências:
+
+```bash
+npm install
+```
+
+4. Crie uma conta no [Stripe](https://stripe.com/en-br) e cadastre produtos de sua escolha. 
+
+5. Crie um arquivo `.env.local` na raiz do projeto e adicione as chaves pública e privada que o Stripe provê. Adicione, também, uma URL referente ao app
+
+```env
+STRIPE_PUBLIC_KEY="pk_secret"
+STRIPE_SECRET_KEY="sk_secret"
+NEXT_URL="http://localhost:3000"
+```
+
+5. Rode a aplicação
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# :computer_mouse: Uso da aplicação
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+1. Abra o navegador e acesse [http://localhost:3000](http://localhost:3000)
+2. Visualize as camisetas disponíveis
+3. Adicione as camisetas ao carrinho
+4. Finalize a compra
+5. Visualize os dados da compra após finalizada
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# :computer: Tecnologias utilizadas
 
-## Learn More
+<p float="left">
+  <img width="50" src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png" alt="React" title="React"/>
+  <img width="50" src="https://user-images.githubusercontent.com/25181517/183890598-19a0ac2d-e88a-4005-a8df-1ee36782fde1.png" alt="TypeScript" title="TypeScript"/>
+  <img width="50" src="https://github.com/marwin1991/profile-technology-icons/assets/136815194/5f8c622c-c217-4649-b0a9-7e0ee24bd704" alt="Next.js" title="Next.js"/>
+</p>
 
-To learn more about Next.js, take a look at the following resources:
+# :page_facing_up: Licença
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
